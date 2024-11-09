@@ -1,16 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnlccrxmxm42m"]
+[gd_scene load_steps=5 format=3 uid="uid://bnlccrxmxm42m"]
 
 [ext_resource type="PackedScene" uid="uid://qlkoma8vq0b4" path="res://Components/Building/TestFloor.tscn" id="2_kldaf"]
 [ext_resource type="PackedScene" uid="uid://ctypwu5fcn66n" path="res://Components/Player/player.tscn" id="2_rosp1"]
 [ext_resource type="PackedScene" uid="uid://n8udotxlbst3" path="res://Components/Building/brick_floor.tscn" id="3_pye71"]
+[ext_resource type="PackedScene" uid="uid://bnc586vi1q3lp" path="res://Components/Enemies/pillbug.tscn" id="4_uah52"]
 
 [node name="TestScene" type="Node2D"]
 
 [node name="StaticBody2D" parent="." instance=ExtResource("2_kldaf")]
 position = Vector2(-1, 2)
+collision_layer = 4
+collision_mask = 0
 
 [node name="Player" parent="." instance=ExtResource("2_rosp1")]
-position = Vector2(70, -96)
+position = Vector2(1501, -79)
+collision_mask = 4
 
 [node name="BrickFloor" parent="." instance=ExtResource("3_pye71")]
 position = Vector2(633, -8)
+collision_layer = 4
+collision_mask = 3
+
+[node name="Pillbug" parent="." instance=ExtResource("4_uah52")]
+position = Vector2(923, -90)

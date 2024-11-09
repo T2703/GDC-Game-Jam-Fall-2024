@@ -4,7 +4,7 @@ using System;
 public partial class PlayerBullet : Area2D
 {
 	// Speed of the bullet.
-	public float Speed = 3500f;
+	public float Speed = 1000f;
 
 	// Direction of the bullet.
 	private Vector2 Direction;
@@ -13,11 +13,21 @@ public partial class PlayerBullet : Area2D
 	private float Lifespan = 3f;
 
 	// The damage
-	public int Damage = 10;
-	
+	public int Damage = 1;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Connect("body_entered", new Callable(this, nameof(OnBulletBodyEntered)));
+	}
+
+	private void OnBulletBodyEntered(Node body)
+	{
+		if (body is BaseEnemy enemy)
+		{
+			enemy.TakeDamage(Damage);
+			QueueFree();
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
