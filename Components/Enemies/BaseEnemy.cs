@@ -9,6 +9,7 @@ public partial class BaseEnemy : CharacterBody2D
 	public int Damage { get; set; }
 
 	private const float Gravity = 400.0f;
+	private const float BoundaryTolerance = 5f;
 
 	// Ref to the player node.
 	private Node2D player;
@@ -61,7 +62,7 @@ public partial class BaseEnemy : CharacterBody2D
         }
 		else if (playerInEnemy)
         {
-            player.Call("TakeDamage", Damage);
+            player.Call("TakeDamage", Damage, GlobalPosition);
         }
 		else 
 		{
@@ -77,6 +78,7 @@ public partial class BaseEnemy : CharacterBody2D
 	{
 		float direction = player.GlobalPosition.X > GlobalPosition.X ? 1 : 1;
 		Velocity = new Vector2(direction * Speed, Velocity.Y);
+		Scale = new Vector2(direction, Scale.Y);
 	}
 
 	// Patrol between boundaries if player is not in range,
@@ -88,6 +90,7 @@ public partial class BaseEnemy : CharacterBody2D
 		}
 
 		Velocity = new Vector2(movementDirection * Speed, Velocity.Y);
+		//Scale = new Vector2(movementDirection, Scale.Y);
 	}
 
 	// This applies the gravity
@@ -127,8 +130,13 @@ public partial class BaseEnemy : CharacterBody2D
 	// When the player enters the enemy's range
 	private void OnEnemyDamageEntered(Node body)
 	{
-		if (body is Player)
+		if (body is Player player)
 		{
+			if (player.attackCooldownTimer <= 0) 
+			{
+				player.TakeDamage(Damage, GlobalPosition);
+			}
+
 			playerInEnemy = true;  
 		}
 		else if (body is PlayerBullet bullet)
@@ -152,6 +160,31 @@ public partial class BaseEnemy : CharacterBody2D
     public virtual void TakeDamage(int damage) 
 	{
 		Health -= damage;
-        if (Health <= 0) QueueFree();
+        if (Health <= 0)
+		{
+			QueueFree();
+			SpawnHealing();
+		} 
+	}
+
+	protected virtual void SpawnHealing() 
+	{
+		if (new Random().NextDouble() <= 0.4)
+		{
+			PackedScene healthPickupScene = (PackedScene)ResourceLoader.Load("res://Components/Pickups/heatlh_pickup.tscn");
+
+			if (healthPickupScene != null)
+			{
+			// Create the bullet instance
+			HeatlhPickup heatlhPickup = healthPickupScene.Instantiate<HeatlhPickup>();
+
+			// Set the bullet's position to the gun's position (or adjust as needed)
+			heatlhPickup.Position = GlobalPosition;
+
+			// Add the bullet to the scene tree
+			GetTree().Root.AddChild(heatlhPickup);
+
+			}
+		}
 	}
 }

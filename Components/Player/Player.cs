@@ -18,16 +18,43 @@ public partial class Player : CharacterBody2D
 	// Track the last movement direction for shooting.
 	private Vector2 lastDirection = Vector2.Right;
 
+	// Cooldowns for attack
+	private float attackCooldown = 0.5f;
+	public float attackCooldownTimer = 0f;
+
+	// Knockback props
+	private Vector2 knockbackDirection = Vector2.Zero;
+	private float knockbackForce = 4500.0f;
+	private float knockbackTimer = 0f;
+	private float knockbackDuration = 0.3f;
+
+	// Flash
+	private Timer flashTimer;
+	private int flashCount = 0;
+
     public override void _Ready()
     {
         base._Ready();
 		sprite = GetNode<Sprite2D>("Player");
+		flashTimer = GetNode<Timer>("FlashTimer");
+		flashTimer.Connect("timeout", new Callable(this, nameof(OnFlashTimeout)));
     }
 
     public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
-		HandleInput(ref velocity, delta);
+
+		if (knockbackTimer > 0)
+		{
+			velocity += knockbackDirection * knockbackForce * (float)delta;
+			knockbackTimer -= (float)delta;
+		}
+		else 
+		{
+			HandleInput(ref velocity, delta);
+		}
+
+		if (attackCooldownTimer > 0) attackCooldownTimer -= (float)delta;
 
 		Velocity = velocity;
 		MoveAndSlide();
@@ -71,8 +98,15 @@ public partial class Player : CharacterBody2D
     {
         if (!IsOnFloor())
         {
+			knockbackForce = 5000.0f;
+			knockbackDuration = 0.2f;
             velocity += GetGravity() * (float)delta;
         }
+		else 
+		{
+			knockbackForce = 4500.0f;
+			knockbackDuration = 0.3f;
+		}
     }
 	
 	// Shooting attack baisc.
@@ -105,11 +139,23 @@ public partial class Player : CharacterBody2D
 	}
 
 	// For when the player takes damage.
-	public virtual void TakeDamage(int damage) 
+	public virtual void TakeDamage(int damage, Vector2 enemyPos) 
 	{
-		health -= damage;
-		GD.Print(health);
-        if (health <= 0) QueueFree();
+		if (attackCooldownTimer <= 0) 
+		{
+			health -= damage;
+			GD.Print(health);
+        	if (health <= 0) QueueFree();
+
+			knockbackDirection = (GlobalPosition - enemyPos).Normalized();
+			knockbackTimer = knockbackDuration;
+
+			attackCooldownTimer = attackCooldown;
+
+			flashCount = 10;
+			flashTimer.Start();
+		}
+
 	}
 
 	// Healing method for the player.
@@ -117,5 +163,17 @@ public partial class Player : CharacterBody2D
 	{
 		health += amount;
 		health = Math.Min(health, 5);
+	}
+
+	private void OnFlashTimeout()
+	{
+		sprite.Visible = !sprite.Visible;
+
+		flashCount--;
+		if (flashCount <= 0) 
+		{
+			flashTimer.Stop();
+			sprite.Visible = true;
+		}
 	}
 }
