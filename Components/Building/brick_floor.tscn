@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://n8udotxlbst3"]
+
+[ext_resource type="Texture2D" uid="uid://dcof6dxmoqj8t" path="res://Graphics/Buildings/BrickFloor.png" id="1_r3o5w"]
+
+[node name="BrickFloor" type="StaticBody2D"]
+
+[node name="BrickFloor" type="Sprite2D" parent="."]
+position = Vector2(633, 96)
+scale = Vector2(6.355, 0.97)
+texture = ExtResource("1_r3o5w")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(633, 96)
+scale = Vector2(6.355, 0.97)
+polygon = PackedVector2Array(-100, 100, -100, -100, 100, -100, 100, 100)

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://qlkoma8vq0b4"]
+
+[ext_resource type="Texture2D" uid="uid://b7x1thtqycbva" path="res://icon.svg" id="1_ytblb"]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(315, 61)
+scale = Vector2(4.92188, 1)
+texture = ExtResource("1_ytblb")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(315, 61)
+scale = Vector2(4.92188, 1)
+polygon = PackedVector2Array(57.1, -64, -57.1, -64, -57.1, -63.1, -59.1, -63.1, -59.1, -62.1, -60.1, -62.1, -60.1, -61.1, -61.1, -61.1, -61.1, -60.1, -62.1, -60.1, -62.1, -59.1, -63.1, -59.1, -63.1, -57.1, -64, -57.1, -64, 57.1, -63.1, 57.1, -63.1, 58.1, -62.1, 58.1, -62.1, 60.1, -61.1, 60.1, -61.1, 61.1, -60.1, 61.1, -60.1, 62.1, -58.1, 62.1, -58.1, 63.1, -57.1, 63.1, -57.1, 64, 57.1, 64, 57.1, 63.1, 58.1, 63.1, 58.1, 62.1, 60.1, 62.1, 60.1, 61.1, 61.1, 61.1, 61.1, 60.1, 62.1, 60.1, 62.1, 58.1, 63.1, 58.1, 63.1, 57.1, 64, 57.1, 64, -57.1, 63.1, -57.1, 63.1, -58.1, 62.1, -58.1, 62.1, -60.1, 61.1, -60.1, 61.1, -61.1, 60.1, -61.1, 60.1, -62.1, 58.1, -62.1, 58.1, -63.1, 57.1, -63.1)

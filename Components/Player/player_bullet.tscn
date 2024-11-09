@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ri7xtp0fiuf4"]
+
+[ext_resource type="Texture2D" uid="uid://do6tnu0f820ue" path="res://Graphics/PlayerBullet.png" id="1_clgor"]
+[ext_resource type="Script" path="res://Components/Player/PlayerBullet.cs" id="1_hidf6"]
+
+[node name="PlayerBullet" type="Area2D"]
+script = ExtResource("1_hidf6")
+
+[node name="PlayerBullet" type="Sprite2D" parent="."]
+position = Vector2(16, 6)
+texture = ExtResource("1_clgor")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(16, 6)
+polygon = PackedVector2Array(19.5, -7.9, -8.5, -9.1, -8.5, -7.5, -16.4, -4, -20, -4, -20, 8, -14.5, 8, -8.4, 3, -6.7, 3, -5.5, 4.2, -5.5, 5.4, -3.9, 6.2, -0.9, 4.1, 2.1, 10, 4.6, 10, 7.5, 7.1, 7.5, 1.2, 13.9, 2, 15.6, 2, 19.7, -2, 20, -5.7, 19.5, -6.2)

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dql1k42jw4ptv"]
+
+[ext_resource type="Texture2D" uid="uid://s25yxgdu3uw5" path="res://Graphics/Buildings/Blue_Floor.png" id="1_xbgtf"]
+
+[node name="BlueFloor" type="StaticBody2D"]
+
+[node name="BlueFloor" type="Sprite2D" parent="."]
+position = Vector2(15, 7)
+texture = ExtResource("1_xbgtf")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(15, 7)
+polygon = PackedVector2Array(-15, -9, -15, -8, -16, -8, -16, -2, -15, -2, -15, -1, 15, -1, 15, -2, 16, -2, 16, -8, 15, -8, 15, -9)
