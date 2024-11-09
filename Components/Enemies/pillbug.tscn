@@ -23,9 +23,9 @@ position = Vector2(100, 8)
 scale = Vector2(0.506522, 0.25)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DetectionArea"]
-position = Vector2(128, 16)
+position = Vector2(385, 22)
 scale = Vector2(0.503261, 0.556985)
-polygon = PackedVector2Array(-115, 34, -135.119, -156.198, 488.812, -174.152, 460.993, 41.2938)
+polygon = PackedVector2Array(-677.581, 102.337, -524.579, -186.72, 488.812, -174.152, 538.488, 80.7921)
 
 [node name="DamageArea" type="Area2D" parent="."]
 collision_layer = 2

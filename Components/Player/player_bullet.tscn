@@ -5,7 +5,7 @@
 
 [node name="PlayerBullet" type="Area2D"]
 collision_layer = 8
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("1_hidf6")
 
 [node name="PlayerBullet" type="Sprite2D" parent="."]

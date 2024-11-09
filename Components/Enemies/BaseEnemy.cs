@@ -9,7 +9,7 @@ public partial class BaseEnemy : CharacterBody2D
 	public int Damage { get; set; }
 
 	private const float Gravity = 400.0f;
-	private const float BoundaryTolerance = 5f;
+	private const float BoundaryTolerance = 40f;
 
 	// Ref to the player node.
 	private Node2D player;
@@ -76,21 +76,42 @@ public partial class BaseEnemy : CharacterBody2D
 	// Moving towards the player horizontally
 	private void MoveTowardsPlayer() 
 	{
-		float direction = player.GlobalPosition.X > GlobalPosition.X ? 1 : 1;
+		float direction = player.GlobalPosition.X > GlobalPosition.X ? 1 : -1;
 		Velocity = new Vector2(direction * Speed, Velocity.Y);
-		Scale = new Vector2(direction, Scale.Y);
+		//Scale = new Vector2(direction, Scale.Y);
+		GD.Print("Attack");
 	}
 
-	// Patrol between boundaries if player is not in range,
-	private void Patrol() {
-		if ((GlobalPosition.X <= LeftBoundary && movementDirection == -1) || 
-		    (GlobalPosition.X >= RightBoundary && movementDirection == 1))
+	// Patrol between boundaries if player is not in range
+	private void Patrol() 
+	{
+		// Check the current direction
+		if (movementDirection == 1) // Moving right
 		{
-			movementDirection *= -1;
-		}
+			// Move right
+			Velocity = new Vector2(Speed, Velocity.Y);
 
-		Velocity = new Vector2(movementDirection * Speed, Velocity.Y);
-		//Scale = new Vector2(movementDirection, Scale.Y);
+			// Check if the enemy has reached the right boundary
+			if (GlobalPosition.X >= RightBoundary)
+			{
+				// Switch to moving left
+				movementDirection = -1;
+				Scale = new Vector2(-1, Scale.Y); // Flip the enemy sprite
+			}
+		}
+		else if (movementDirection == -1) // Moving left
+		{
+			// Move left
+			Velocity = new Vector2(-Speed, Velocity.Y);
+
+			// Check if the enemy has reached the left boundary
+			if (GlobalPosition.X <= LeftBoundary)
+			{
+				// Switch to moving right
+				movementDirection = 1;
+				Scale = new Vector2(1, Scale.Y); // Flip the enemy sprite
+			}
+		}
 	}
 
 	// This applies the gravity

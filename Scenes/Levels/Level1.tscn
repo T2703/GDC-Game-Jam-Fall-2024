@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://b58o6q8csvsme"]
+
+[ext_resource type="PackedScene" uid="uid://n8udotxlbst3" path="res://Components/Building/brick_floor.tscn" id="1_e8eyw"]
+[ext_resource type="Texture2D" uid="uid://b8coge0ebvkmq" path="res://Graphics/Buildings/BG_Wall_1.png" id="2_w5ng8"]
+[ext_resource type="PackedScene" uid="uid://ctypwu5fcn66n" path="res://Components/Player/player.tscn" id="3_17yt2"]
+[ext_resource type="PackedScene" uid="uid://cowjn8nuecory" path="res://Components/Building/dagrass.tscn" id="4_6aufi"]
+
+[node name="Level1" type="Node2D"]
+
+[node name="BgWall1" type="Sprite2D" parent="."]
+position = Vector2(1267.25, -172.812)
+scale = Vector2(81.5323, 24.5324)
+texture = ExtResource("2_w5ng8")
+
+[node name="BrickFloor" parent="." instance=ExtResource("1_e8eyw")]
+position = Vector2(2, 47)
+
+[node name="BrickFloor2" parent="BrickFloor" instance=ExtResource("1_e8eyw")]
+position = Vector2(6, -584)
+
+[node name="BrickFloor3" parent="BrickFloor" instance=ExtResource("1_e8eyw")]
+position = Vector2(1268, 0)
+
+[node name="BrickFloor2" parent="BrickFloor/BrickFloor3" instance=ExtResource("1_e8eyw")]
+position = Vector2(6, -584)
+
+[node name="Player" parent="." instance=ExtResource("3_17yt2")]
+position = Vector2(-670, -13)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("4_6aufi")]
+position = Vector2(-1138, 47)
+collision_layer = 4
+collision_mask = 7

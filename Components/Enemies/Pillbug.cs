@@ -9,7 +9,7 @@ public partial class Pillbug : BaseEnemy
 		Health = 3;
 		Speed = 200f;
 		Damage = 1;
-		LeftBoundary = 20;
-		RightBoundary = 20;
+		LeftBoundary = -200;
+		RightBoundary = 200;
     }
 }

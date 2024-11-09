@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cowjn8nuecory"]
+
+[ext_resource type="Texture2D" uid="uid://b8qha6gd6uwve" path="res://Graphics/Buildings/TouchGrass.png" id="1_4kna1"]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+[node name="TouchGrass" type="Sprite2D" parent="."]
+position = Vector2(575, -17)
+scale = Vector2(5.74, 2.82743)
+texture = ExtResource("1_4kna1")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(575, -17)
+scale = Vector2(5.74, 2.82743)
+polygon = PackedVector2Array(99.1, 4.4, -100, 4.4, -100, 56.5, 100, 56.5, 100, 5.4, 99.1, 5.4)
