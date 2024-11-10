@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b58o6q8csvsme"]
+[gd_scene load_steps=15 format=3 uid="uid://b58o6q8csvsme"]
 
 [ext_resource type="PackedScene" uid="uid://n8udotxlbst3" path="res://Components/Building/brick_floor.tscn" id="1_e8eyw"]
 [ext_resource type="Script" path="res://Scenes/Levels/Level1Manager.cs" id="1_gknmj"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://dqdaswhdlu7r8" path="res://Components/Enemies/moth.tscn" id="9_hjeqp"]
 [ext_resource type="PackedScene" uid="uid://co6072b352svm" path="res://Components/Building/nectar.tscn" id="9_ummw0"]
 [ext_resource type="AudioStream" uid="uid://c8mmdhh7yk8uc" path="res://Sounds/Music/Retro_Platforming_-_David_Fesliyan.mp3" id="12_qsmxb"]
+[ext_resource type="PackedScene" uid="uid://up2avfn5tw7" path="res://Components/Enemies/Target.tscn" id="13_ab753"]
+[ext_resource type="PackedScene" uid="uid://cyxbrlqhmitq0" path="res://Components/Player/escape.tscn" id="14_pc7io"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_gknmj")
@@ -29,7 +31,7 @@ collision_mask = 7
 [node name="BrickFloor3" parent="." instance=ExtResource("1_e8eyw")]
 position = Vector2(4748, -148)
 collision_layer = 4
-collision_mask = 7
+collision_mask = 15
 
 [node name="DeathArea" parent="." instance=ExtResource("3_sedg8")]
 position = Vector2(7219, 23385)
@@ -38,7 +40,7 @@ position = Vector2(7219, 23385)
 position = Vector2(4400, -77)
 
 [node name="Marker2" parent="." instance=ExtResource("4_5lr3x")]
-position = Vector2(12085, -1303)
+position = Vector2(12202, -1303)
 
 [node name="Marker3" parent="." instance=ExtResource("4_5lr3x")]
 position = Vector2(5538, -848)
@@ -130,7 +132,7 @@ position = Vector2(6461, -873)
 position = Vector2(5911, -1237)
 
 [node name="Player" parent="." instance=ExtResource("3_17yt2")]
-position = Vector2(4965, -219)
+position = Vector2(406, -35)
 
 [node name="Pillbug4" parent="." instance=ExtResource("3_phhy4")]
 position = Vector2(7685, -205)
@@ -143,9 +145,16 @@ position = Vector2(8695, -205)
 collision_layer = 4
 collision_mask = 7
 
-[node name="StaticBody2D" parent="." instance=ExtResource("4_6aufi")]
-position = Vector2(11659, -1205)
-collision_layer = 4
-
 [node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_qsmxb")
+max_distance = 100000.0
+
+[node name="Target" parent="." instance=ExtResource("13_ab753")]
+position = Vector2(10846, -1390)
+
+[node name="Dagrass" parent="Target" instance=ExtResource("4_6aufi")]
+position = Vector2(813, 185)
+collision_layer = 4
+
+[node name="Escape" parent="." instance=ExtResource("14_pc7io")]
+position = Vector2(214, -12)

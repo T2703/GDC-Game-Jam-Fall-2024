@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cowjn8nuecory"]
+[gd_scene load_steps=3 format=3 uid="uid://cowjn8nuecory"]
 
 [ext_resource type="Texture2D" uid="uid://b8qha6gd6uwve" path="res://Graphics/Buildings/TouchGrass.png" id="1_4kna1"]
+[ext_resource type="Script" path="res://Components/Building/Dagrass.cs" id="1_ws3w0"]
 
-[node name="StaticBody2D" type="StaticBody2D"]
+[node name="Dagrass" type="StaticBody2D"]
+script = ExtResource("1_ws3w0")
 
 [node name="TouchGrass" type="Sprite2D" parent="."]
 position = Vector2(575, -17)

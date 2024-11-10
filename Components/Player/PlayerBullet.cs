@@ -10,7 +10,7 @@ public partial class PlayerBullet : Area2D
 	private Vector2 Direction;
 
 	// This causes the bullet to disappear after 3 seconds.
-	private float Lifespan = 3f;
+	private float Lifespan = 1.5f;
 
 	// The damage
 	public int Damage = 1;
@@ -28,6 +28,10 @@ public partial class PlayerBullet : Area2D
 			enemy.TakeDamage(Damage);
 			QueueFree();
 		}
+		else if (body is StaticBody2D || body is Area2D)
+        {
+			QueueFree();
+        }
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,6 +41,7 @@ public partial class PlayerBullet : Area2D
 		Lifespan -= (float)delta;
 
 		if (Lifespan <= 0) QueueFree();
+
 	}
 
 	public void Fire(Vector2 direction) 

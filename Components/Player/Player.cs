@@ -12,6 +12,10 @@ public partial class Player : CharacterBody2D
 	// Player's health in hearts.
 	public int health = 5;
 
+	// Time is money
+	public int timerLevel = 160;
+	private int remainingTime;
+
 	// Player sprite reference.
 	private Sprite2D sprite;
 
@@ -29,7 +33,7 @@ public partial class Player : CharacterBody2D
 	private float knockbackDuration = 0.3f;
 
 	// Packages to deliever
-	public int packageCount = 4;
+	public int packageCount = 3;
 
 	// Flash
 	private Timer flashTimer;
@@ -37,10 +41,13 @@ public partial class Player : CharacterBody2D
 
 	private Label healthLabel;
 	private Label packageLabel;
+	private Label timerLabel;
 
 	// Sound
 	private AudioStreamPlayer2D gunShotSFX;
 	private AudioStreamPlayer2D jumpSFX;
+
+	private Level1Manager level1Manager;
 
     public override void _Ready()
     {
@@ -54,8 +61,18 @@ public partial class Player : CharacterBody2D
 
 		healthLabel = GetNode<Label>("HealthLabel");
 		packageLabel = GetNode<Label>("PacakgeLabel");
+		timerLabel = GetNode<Label>("TimeLabel");
+		remainingTime = timerLevel;
 		UpdateHealthLabel();
 		UpdatePackageLabel();
+		UpdateTimerLabel();
+
+		Timer countdownTimer = new Timer();
+        countdownTimer.WaitTime = 1.0f; 
+        countdownTimer.OneShot = false;
+        countdownTimer.Autostart = true;
+        countdownTimer.Connect("timeout", new Callable(this, nameof(OnTimerTimeout)));
+        AddChild(countdownTimer);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -221,4 +238,22 @@ public partial class Player : CharacterBody2D
 	{
 		packageLabel.Text = "Packages To Deliever: " + packageCount;
 	}
+
+	public void UpdateTimerLabel()
+	{
+		timerLabel.Text = "Time Left: " + remainingTime;
+	}
+
+	private void OnTimerTimeout()
+    {
+        remainingTime--; 
+
+        timerLabel.Text = "Time Left: " + remainingTime.ToString();
+
+        if (remainingTime <= 0)
+        {
+            GameOver();
+			QueueFree();
+        }
+    }
 }

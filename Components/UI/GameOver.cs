@@ -9,6 +9,7 @@ public partial class GameOver : Control
     {
         screamSFX = GetNode<AudioStreamPlayer2D>("SFX");
 		screamSFX.Play();
+		Level1Manager.Instance?.StopMusic(); // Stop the level 1 music
     }
     public void _on_retry_pressed()
 	{

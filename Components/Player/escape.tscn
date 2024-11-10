@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyxbrlqhmitq0"]
+
+[ext_resource type="Script" path="res://Components/Player/Escape.cs" id="1_1ajyl"]
+[ext_resource type="Texture2D" uid="uid://dlg6p32as7d05" path="res://Graphics/Player/Ride.png" id="1_wiuvf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xyp4n"]
+size = Vector2(89, 49)
+
+[node name="Escape" type="Area2D"]
+script = ExtResource("1_1ajyl")
+
+[node name="Ride" type="Sprite2D" parent="."]
+position = Vector2(34, 12)
+texture = ExtResource("1_wiuvf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(34.5, 14.5)
+shape = SubResource("RectangleShape2D_xyp4n")
