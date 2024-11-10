@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://noppp4605lp"]
+
+[ext_resource type="Texture2D" uid="uid://dbrafo1qfbyqw" path="res://Graphics/Story/Victory3.png" id="1_3t2r2"]
+[ext_resource type="Script" path="res://Components/UI/Intro.cs" id="1_d0h12"]
+[ext_resource type="Texture2D" uid="uid://dgfbu6ejmlm0w" path="res://Graphics/Story/Intro.png" id="2_38cpg"]
+
+[node name="Intro" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_d0h12")
+
+[node name="Victory3" type="Sprite2D" parent="."]
+position = Vector2(602.5, 282)
+scale = Vector2(6.95953, 6.09744)
+texture = ExtResource("1_3t2r2")
+
+[node name="Intro" type="Sprite2D" parent="."]
+position = Vector2(298, 193)
+texture = ExtResource("2_38cpg")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 210.0
+offset_right = 537.0
+offset_bottom = 318.0
+text = "This is Idaho Kojumbo, V.W. the Beetle I need you to deliever
+these important packages to our client however, those guys at 
+Beethesda are trying to put us out of buisness. Take down
+anyone who gets in you're way and make it quick time is money."
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(283, 288)
+
+[node name="Continue" type="Button" parent="."]
+layout_mode = 0
+offset_left = 187.0
+offset_top = 343.0
+offset_right = 358.0
+offset_bottom = 400.0
+text = "Continue"
+
+[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]

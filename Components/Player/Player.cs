@@ -10,10 +10,10 @@ public partial class Player : CharacterBody2D
     public const float JumpVelocity = -600.0f;
 
 	// Player's health in hearts.
-	public int health = 5;
+	public int health;
 
 	// Time is money
-	public int timerLevel = 160;
+	public int timerLevel = 100;
 	private int remainingTime;
 
 	// Player sprite reference.
@@ -46,15 +46,30 @@ public partial class Player : CharacterBody2D
 	// Sound
 	private AudioStreamPlayer2D gunShotSFX;
 	private AudioStreamPlayer2D jumpSFX;
+	private AudioStreamPlayer2D hurtSFX;
 
 	private Level1Manager level1Manager;
+
+	private CanvasLayer pause;
+
+	public static Player Instance;
 
     public override void _Ready()
     {
         base._Ready();
+		Instance = this;
+
+		pause = GetNode<CanvasLayer>("Pause");
+		GD.Print("Pause ", pause);
+		GetTree().Paused = false;
+
+		health = GameManager.Instance.PlayerHealth;
+		GD.Print(GameManager.Instance);
+
 		sprite = GetNode<Sprite2D>("Player");
 		gunShotSFX = GetNode<AudioStreamPlayer2D>("Gunshoot");
 		jumpSFX = GetNode<AudioStreamPlayer2D>("Jump");
+		hurtSFX = GetNode<AudioStreamPlayer2D>("Hurt");
 
 		flashTimer = GetNode<Timer>("FlashTimer");
 		flashTimer.Connect("timeout", new Callable(this, nameof(OnFlashTimeout)));
@@ -127,6 +142,11 @@ public partial class Player : CharacterBody2D
         {
             ShootAttackOne();
         }
+
+		if (Input.IsActionJustPressed("esc"))
+        {
+            TogglePause();
+        }
     }
 
 	// This applies the gravity for the player
@@ -168,6 +188,13 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	private void TogglePause()
+    {
+        bool isPaused = GetTree().Paused;
+        GetTree().Paused = !isPaused;
+        pause.Visible = !isPaused; 
+    }
+
 	// Method to filp the sprite based on movement direction
 	private void HandleSpriteFlip(Vector2 direction) {
 		// This does flipping if moving right or left.
@@ -181,7 +208,7 @@ public partial class Player : CharacterBody2D
 		if (attackCooldownTimer <= 0) 
 		{
 			health -= damage;
-			GD.Print(health);
+			hurtSFX.Play();
         	if (health <= 0) 
 			{
 				GameOver();
@@ -229,7 +256,7 @@ public partial class Player : CharacterBody2D
 		//GetTree().Paused = true; 
 	}
 
-	private void UpdateHealthLabel()
+	public void UpdateHealthLabel()
 	{
 		healthLabel.Text = "Life: " + health;
 	}
@@ -237,6 +264,8 @@ public partial class Player : CharacterBody2D
 	public void UpdatePackageLabel()
 	{
 		packageLabel.Text = "Packages To Deliever: " + packageCount;
+
+		if (packageCount <= 0) packageLabel.Text = "GET BACK TO THE CAR!";
 	}
 
 	public void UpdateTimerLabel()

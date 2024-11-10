@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://btkhhmc7j4opd"]
+
+[ext_resource type="Script" path="res://Components/UI/Pause.cs" id="1_0lhkh"]
+
+[node name="Pause" type="CanvasLayer"]
+script = ExtResource("1_0lhkh")
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 602.0
+offset_top = 41.0
+offset_right = 709.0
+offset_bottom = 72.0
+text = "Quit"
+
+[node name="Resume" type="Button" parent="."]
+offset_left = 259.0
+offset_top = 40.0
+offset_right = 366.0
+offset_bottom = 71.0
+text = "Resume"
+
+[node name="Retry" type="Button" parent="."]
+offset_left = 422.0
+offset_top = 41.0
+offset_right = 529.0
+offset_bottom = 72.0
+text = "Retry"

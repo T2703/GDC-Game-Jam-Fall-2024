@@ -11,13 +11,13 @@ public partial class Escape : Area2D
 		Connect("body_entered", new Callable(this, nameof(OnPackageEntered)));
 	}
 
-	private static void OnPackageEntered(Node body)
+	private void OnPackageEntered(Node body)
 	{
 		if (body is Player player)
 		{
 			if (player.packageCount <= 0) 
 			{
-				GD.Print("WIN");
+				GetTree().ChangeSceneToFile("res://Components/UI/Victory.tscn");
 			}
 			else{
 				GD.Print("NO");

@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsodgmmf2dcf2"]
+
+[ext_resource type="Texture2D" uid="uid://b8cn5v6l756v5" path="res://Graphics/Story/Victory.png" id="1_gon5s"]
+[ext_resource type="Script" path="res://Components/UI/Victory.cs" id="1_i658s"]
+[ext_resource type="Texture2D" uid="uid://dbrafo1qfbyqw" path="res://Graphics/Story/Victory3.png" id="2_5hqyf"]
+[ext_resource type="AudioStream" uid="uid://cyjjk0lrj5a8t" path="res://Sounds/SFX/Cheer.mp3" id="4_c8s66"]
+
+[node name="Victory" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_i658s")
+
+[node name="Victory3" type="Sprite2D" parent="."]
+position = Vector2(31.5002, 296.5)
+scale = Vector2(7.1484, 6.38718)
+texture = ExtResource("2_5hqyf")
+
+[node name="Victory" type="Sprite2D" parent="."]
+position = Vector2(582.5, 282)
+scale = Vector2(1.85463, 1)
+texture = ExtResource("1_gon5s")
+
+[node name="StoryText" type="Label" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 306.0
+offset_right = 1163.0
+offset_bottom = 423.0
+text = "Congratulations, you have delievered all the packages in time. Your a great asset to the company and Idhao Kojumbo enjoys the hard work. Keep it up!"
+
+[node name="Complete" type="Button" parent="."]
+layout_mode = 0
+offset_left = 439.0
+offset_top = 359.0
+offset_right = 657.0
+offset_bottom = 412.0
+text = "Continue :D"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(563, 222)
+zoom = Vector2(1.5, 1.5)
+
+[node name="Clap" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_c8s66")
+bus = &"SFX"
+
+[connection signal="pressed" from="Complete" to="." method="_on_complete_pressed"]

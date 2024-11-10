@@ -6,6 +6,9 @@ public partial class Level1Manager : Node2D
 	public static Level1Manager Instance;
 	private AudioStreamPlayer2D backgroundMusicPlayer;
 
+    private Settings settings;
+    private Player player;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

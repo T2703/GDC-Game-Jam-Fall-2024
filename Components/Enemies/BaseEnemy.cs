@@ -178,6 +178,10 @@ public partial class BaseEnemy : CharacterBody2D
 
 	protected virtual void SpawnHealing() 
 	{
+		if (GameManager.Instance.PlayerHealth == 1)
+		{
+			return;
+		}
 		if (new Random().NextDouble() <= 0.4)
 		{
 			PackedScene healthPickupScene = (PackedScene)ResourceLoader.Load("res://Components/Pickups/heatlh_pickup.tscn");

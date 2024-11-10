@@ -7,6 +7,7 @@ public partial class GameOver : Control
 
     public override void _Ready()
     {
+        ProcessMode = Node.ProcessModeEnum.Always;
         screamSFX = GetNode<AudioStreamPlayer2D>("SFX");
 		screamSFX.Play();
 		Level1Manager.Instance?.StopMusic(); // Stop the level 1 music
@@ -20,7 +21,8 @@ public partial class GameOver : Control
 
 	public void _on_quit_pressed()
 	{
-		GetTree().Quit();
+        QueueFree();
+        GetTree().ChangeSceneToFile("res://Components/UI/menu.tscn");
 	}
 
 	private void ClearLevelState()

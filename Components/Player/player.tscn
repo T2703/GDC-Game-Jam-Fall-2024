@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctypwu5fcn66n"]
+[gd_scene load_steps=7 format=3 uid="uid://ctypwu5fcn66n"]
 
 [ext_resource type="Script" path="res://Components/Player/Player.cs" id="1_1e5j1"]
 [ext_resource type="Texture2D" uid="uid://bsc65lq346u13" path="res://Graphics/Player.png" id="1_clwba"]
 [ext_resource type="AudioStream" uid="uid://k2kwcfxt7on8" path="res://Sounds/SFX/Shoot.mp3" id="3_pw3vt"]
 [ext_resource type="AudioStream" uid="uid://bqja7gt3bc2qc" path="res://Sounds/SFX/Jump.mp3" id="4_3ri3h"]
+[ext_resource type="AudioStream" uid="uid://dvb7l85halgq2" path="res://Sounds/SFX/Hurt.mp3" id="5_shuuy"]
+[ext_resource type="PackedScene" uid="uid://btkhhmc7j4opd" path="res://Components/UI/pause.tscn" id="6_yruw1"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 21
@@ -48,8 +50,17 @@ text = "Time To Work"
 
 [node name="Gunshoot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_pw3vt")
-volume_db = 14.748
+volume_db = 24.0
+bus = &"SFX"
 
 [node name="Jump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_3ri3h")
-volume_db = 20.692
+volume_db = 24.0
+bus = &"SFX"
+
+[node name="Hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_shuuy")
+volume_db = 3.559
+bus = &"SFX"
+
+[node name="Pause" parent="." instance=ExtResource("6_yruw1")]
