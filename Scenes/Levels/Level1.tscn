@@ -1,33 +1,151 @@
-[gd_scene load_steps=5 format=3 uid="uid://b58o6q8csvsme"]
+[gd_scene load_steps=13 format=3 uid="uid://b58o6q8csvsme"]
 
 [ext_resource type="PackedScene" uid="uid://n8udotxlbst3" path="res://Components/Building/brick_floor.tscn" id="1_e8eyw"]
-[ext_resource type="Texture2D" uid="uid://b8coge0ebvkmq" path="res://Graphics/Buildings/BG_Wall_1.png" id="2_w5ng8"]
+[ext_resource type="Script" path="res://Scenes/Levels/Level1Manager.cs" id="1_gknmj"]
 [ext_resource type="PackedScene" uid="uid://ctypwu5fcn66n" path="res://Components/Player/player.tscn" id="3_17yt2"]
+[ext_resource type="PackedScene" uid="uid://bnc586vi1q3lp" path="res://Components/Enemies/pillbug.tscn" id="3_phhy4"]
+[ext_resource type="PackedScene" uid="uid://ckekvfvrm1cgm" path="res://Components/Utils/death_area.tscn" id="3_sedg8"]
+[ext_resource type="PackedScene" uid="uid://8nme8wuyber3" path="res://Components/Pickups/marker.tscn" id="4_5lr3x"]
 [ext_resource type="PackedScene" uid="uid://cowjn8nuecory" path="res://Components/Building/dagrass.tscn" id="4_6aufi"]
+[ext_resource type="PackedScene" uid="uid://bgih2kd5n5bvi" path="res://Components/Building/Platform.tscn" id="6_8w4ml"]
+[ext_resource type="PackedScene" uid="uid://b6x5h0x1n5257" path="res://Components/Utils/bumper.tscn" id="6_jrnk5"]
+[ext_resource type="PackedScene" uid="uid://dqdaswhdlu7r8" path="res://Components/Enemies/moth.tscn" id="9_hjeqp"]
+[ext_resource type="PackedScene" uid="uid://co6072b352svm" path="res://Components/Building/nectar.tscn" id="9_ummw0"]
+[ext_resource type="AudioStream" uid="uid://c8mmdhh7yk8uc" path="res://Sounds/Music/Retro_Platforming_-_David_Fesliyan.mp3" id="12_qsmxb"]
 
 [node name="Level1" type="Node2D"]
-
-[node name="BgWall1" type="Sprite2D" parent="."]
-position = Vector2(1267.25, -172.812)
-scale = Vector2(81.5323, 24.5324)
-texture = ExtResource("2_w5ng8")
+script = ExtResource("1_gknmj")
 
 [node name="BrickFloor" parent="." instance=ExtResource("1_e8eyw")]
-position = Vector2(2, 47)
-
-[node name="BrickFloor2" parent="BrickFloor" instance=ExtResource("1_e8eyw")]
-position = Vector2(6, -584)
-
-[node name="BrickFloor3" parent="BrickFloor" instance=ExtResource("1_e8eyw")]
-position = Vector2(1268, 0)
-
-[node name="BrickFloor2" parent="BrickFloor/BrickFloor3" instance=ExtResource("1_e8eyw")]
-position = Vector2(6, -584)
-
-[node name="Player" parent="." instance=ExtResource("3_17yt2")]
-position = Vector2(-670, -13)
-
-[node name="StaticBody2D" parent="." instance=ExtResource("4_6aufi")]
-position = Vector2(-1138, 47)
+position = Vector2(0, 32)
 collision_layer = 4
 collision_mask = 7
+
+[node name="BrickFloor2" parent="." instance=ExtResource("1_e8eyw")]
+position = Vector2(2161, 171)
+collision_layer = 4
+collision_mask = 7
+
+[node name="BrickFloor3" parent="." instance=ExtResource("1_e8eyw")]
+position = Vector2(4748, -148)
+collision_layer = 4
+collision_mask = 7
+
+[node name="DeathArea" parent="." instance=ExtResource("3_sedg8")]
+position = Vector2(7219, 23385)
+
+[node name="Marker" parent="." instance=ExtResource("4_5lr3x")]
+position = Vector2(4400, -77)
+
+[node name="Marker2" parent="." instance=ExtResource("4_5lr3x")]
+position = Vector2(12085, -1303)
+
+[node name="Marker3" parent="." instance=ExtResource("4_5lr3x")]
+position = Vector2(5538, -848)
+
+[node name="Pillbug" parent="." instance=ExtResource("3_phhy4")]
+position = Vector2(3555, 112)
+
+[node name="Bumpers" type="Node2D" parent="."]
+position = Vector2(2158, 56)
+
+[node name="Bumper" parent="Bumpers" instance=ExtResource("6_jrnk5")]
+position = Vector2(966, -6)
+
+[node name="Bumper2" parent="Bumpers" instance=ExtResource("6_jrnk5")]
+position = Vector2(1976, 0)
+
+[node name="Bumper3" parent="Bumpers" instance=ExtResource("6_jrnk5")]
+position = Vector2(3, 7)
+
+[node name="Bumper4" parent="Bumpers" instance=ExtResource("6_jrnk5")]
+position = Vector2(3297, -812)
+
+[node name="Bumper5" parent="Bumpers" instance=ExtResource("6_jrnk5")]
+position = Vector2(3607, -812)
+
+[node name="Bumper6" parent="Bumpers" instance=ExtResource("6_jrnk5")]
+position = Vector2(5896, -317)
+
+[node name="Bumper7" parent="Bumpers" instance=ExtResource("6_jrnk5")]
+position = Vector2(5660, -317)
+
+[node name="Bumper8" parent="Bumpers" instance=ExtResource("6_jrnk5")]
+position = Vector2(5371, -317)
+
+[node name="Bumper9" parent="Bumpers" instance=ExtResource("6_jrnk5")]
+position = Vector2(6192, -317)
+
+[node name="Pillbug2" parent="." instance=ExtResource("3_phhy4")]
+position = Vector2(2566, 106)
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Platform" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(4292, 33)
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(5545, -366)
+
+[node name="Platform3" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(5089, -490)
+
+[node name="Platform4" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(5455, -671)
+
+[node name="Platform5" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(7007, -157)
+
+[node name="Platform6" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(7529, -157)
+
+[node name="Platform7" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(8054, -187)
+
+[node name="Platform8" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(9441, -401)
+
+[node name="Platform9" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(9807, -547)
+
+[node name="Platform10" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(10173, -700)
+
+[node name="Platform11" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(10539, -823)
+
+[node name="Platform12" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(10905, -969)
+
+[node name="Platform13" parent="Platforms" instance=ExtResource("6_8w4ml")]
+position = Vector2(11271, -1122)
+
+[node name="Pillbug3" parent="." instance=ExtResource("3_phhy4")]
+position = Vector2(5586, -715)
+
+[node name="Nectar" parent="." instance=ExtResource("9_ummw0")]
+position = Vector2(6461, -873)
+
+[node name="Moth" parent="." instance=ExtResource("9_hjeqp")]
+position = Vector2(5911, -1237)
+
+[node name="Player" parent="." instance=ExtResource("3_17yt2")]
+position = Vector2(4965, -219)
+
+[node name="Pillbug4" parent="." instance=ExtResource("3_phhy4")]
+position = Vector2(7685, -205)
+
+[node name="Pillbug5" parent="." instance=ExtResource("3_phhy4")]
+position = Vector2(8210, -245)
+
+[node name="BrickFloor4" parent="." instance=ExtResource("1_e8eyw")]
+position = Vector2(8695, -205)
+collision_layer = 4
+collision_mask = 7
+
+[node name="StaticBody2D" parent="." instance=ExtResource("4_6aufi")]
+position = Vector2(11659, -1205)
+collision_layer = 4
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_qsmxb")

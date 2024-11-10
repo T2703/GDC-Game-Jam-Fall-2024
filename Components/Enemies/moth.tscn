@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqdaswhdlu7r8"]
+
+[ext_resource type="Script" path="res://Components/Enemies/Moth.cs" id="1_27b2s"]
+[ext_resource type="Texture2D" uid="uid://d8a27q7as3b6" path="res://Graphics/Buildings/Moth.png" id="1_tqjfb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbwhr"]
+size = Vector2(178, 161)
+
+[node name="Moth" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 70
+script = ExtResource("1_27b2s")
+
+[node name="Moth" type="Sprite2D" parent="."]
+position = Vector2(155, 102)
+texture = ExtResource("1_tqjfb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(197, 115)
+shape = SubResource("RectangleShape2D_bbwhr")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="Detection" type="Sprite2D" parent="DetectionArea"]
+position = Vector2(100, 8)
+scale = Vector2(0.506522, 0.25)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DetectionArea"]
+position = Vector2(613, 160)
+scale = Vector2(0.503261, 0.556985)
+polygon = PackedVector2Array(-677.581, 102.337, -524.579, -186.72, -75.5076, -190.31, -97.365, 100.541)
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(181, 115)
+shape = SubResource("RectangleShape2D_bbwhr")

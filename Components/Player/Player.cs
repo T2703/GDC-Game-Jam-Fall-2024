@@ -28,16 +28,34 @@ public partial class Player : CharacterBody2D
 	private float knockbackTimer = 0f;
 	private float knockbackDuration = 0.3f;
 
+	// Packages to deliever
+	public int packageCount = 4;
+
 	// Flash
 	private Timer flashTimer;
 	private int flashCount = 0;
+
+	private Label healthLabel;
+	private Label packageLabel;
+
+	// Sound
+	private AudioStreamPlayer2D gunShotSFX;
+	private AudioStreamPlayer2D jumpSFX;
 
     public override void _Ready()
     {
         base._Ready();
 		sprite = GetNode<Sprite2D>("Player");
+		gunShotSFX = GetNode<AudioStreamPlayer2D>("Gunshoot");
+		jumpSFX = GetNode<AudioStreamPlayer2D>("Jump");
+
 		flashTimer = GetNode<Timer>("FlashTimer");
 		flashTimer.Connect("timeout", new Callable(this, nameof(OnFlashTimeout)));
+
+		healthLabel = GetNode<Label>("HealthLabel");
+		packageLabel = GetNode<Label>("PacakgeLabel");
+		UpdateHealthLabel();
+		UpdatePackageLabel();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -70,6 +88,7 @@ public partial class Player : CharacterBody2D
         if (Input.IsActionJustPressed("game_space") && IsOnFloor())
         {
             velocity.Y = JumpVelocity;
+			jumpSFX.Play();
         }
 
         // Handle movement input
@@ -123,11 +142,12 @@ public partial class Player : CharacterBody2D
 			bullet.Position = GlobalPosition;
             
 			// Fire the bullet in the direction
-				bullet.Fire(lastDirection);
+			bullet.Fire(lastDirection);
 
 			// Add the bullet to the scene tree
 			GetTree().Root.AddChild(bullet);
 
+			gunShotSFX.Play();
 		}
 	}
 
@@ -145,7 +165,12 @@ public partial class Player : CharacterBody2D
 		{
 			health -= damage;
 			GD.Print(health);
-        	if (health <= 0) QueueFree();
+        	if (health <= 0) 
+			{
+				GameOver();
+				QueueFree();
+			}
+			UpdateHealthLabel();
 
 			knockbackDirection = (GlobalPosition - enemyPos).Normalized();
 			knockbackTimer = knockbackDuration;
@@ -163,6 +188,7 @@ public partial class Player : CharacterBody2D
 	{
 		health += amount;
 		health = Math.Min(health, 5);
+		UpdateHealthLabel();
 	}
 
 	private void OnFlashTimeout()
@@ -175,5 +201,24 @@ public partial class Player : CharacterBody2D
 			flashTimer.Stop();
 			sprite.Visible = true;
 		}
+	}
+
+	// Game over man!
+	private void GameOver()
+	{
+		var gameOverScene = (PackedScene)ResourceLoader.Load("res://Components/UI/game_over.tscn");
+        var gameOverInstance = gameOverScene.Instantiate();
+		GetTree().CurrentScene.AddChild(gameOverInstance);
+		//GetTree().Paused = true; 
+	}
+
+	private void UpdateHealthLabel()
+	{
+		healthLabel.Text = "Life: " + health;
+	}
+
+	public void UpdatePackageLabel()
+	{
+		packageLabel.Text = "Packages To Deliever: " + packageCount;
 	}
 }

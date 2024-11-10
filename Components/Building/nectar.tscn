@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://co6072b352svm"]
+
+[ext_resource type="Script" path="res://Components/Building/Nectar.cs" id="1_cssv6"]
+[ext_resource type="Texture2D" uid="uid://cxlxfsf5tpabq" path="res://Graphics/Buildings/NectarWall.png" id="1_dv8cy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6s63t"]
+size = Vector2(842, 1176.79)
+
+[node name="Nectar" type="StaticBody2D"]
+collision_layer = 68
+collision_mask = 11
+script = ExtResource("1_cssv6")
+
+[node name="NectarWall" type="Sprite2D" parent="."]
+position = Vector2(255.5, 211.5)
+scale = Vector2(1.37674, 1.99826)
+texture = ExtResource("1_dv8cy")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(314.779, 219.498)
+rotation = 0.0119477
+shape = SubResource("RectangleShape2D_6s63t")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(303.135, 226.205)
+rotation = 0.0119477
+shape = SubResource("RectangleShape2D_6s63t")

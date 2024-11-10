@@ -9,10 +9,13 @@ public partial class HeatlhPickup : Area2D
 
 	public int healingAmount = 1;
 
+	private float Lifespan = 10f;
+
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		AddToGroup("HealthPickup");
 	}
 
 	private void OnHealthPickupBodyEntered(Node body) 
@@ -26,5 +29,11 @@ public partial class HeatlhPickup : Area2D
 				QueueFree();
 			}
 		}
+	}
+
+	public override void _Process(double delta)
+	{
+
+		if (Lifespan <= 0) QueueFree();
 	}
 }

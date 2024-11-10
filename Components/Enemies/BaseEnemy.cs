@@ -26,10 +26,6 @@ public partial class BaseEnemy : CharacterBody2D
 	// Track whether the player is inside the enemy
 	private bool playerInEnemy = false;
 
-	// Patrol boundaries 
-	public float LeftBoundary  { get; set; }
-	public float RightBoundary { get; set; }
-
 	// -1 for left, 1 for right
 	private int movementDirection = 1;
 
@@ -54,17 +50,23 @@ public partial class BaseEnemy : CharacterBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		//GD.Print(playerInEnemy);
-		// Continuously check if the player is within range
-        if (playerInRange)
-        {
-            MoveTowardsPlayer();
-        }
+		if (IsOnWall()) 
+		{
+			if (movementDirection == 1)
+			{
+				movementDirection = -1;
+			}
+			else if (movementDirection == -1)
+			{
+				movementDirection = 1;
+			}
+			Scale = new Vector2(-1, Scale.Y);
+		}
 		else if (playerInEnemy)
         {
             player.Call("TakeDamage", Damage, GlobalPosition);
         }
-		else 
+		else
 		{
 			Patrol();
 		}
@@ -72,46 +74,10 @@ public partial class BaseEnemy : CharacterBody2D
 		ApplyGravity((float)delta);
 		MoveAndSlide();
 	}
-
-	// Moving towards the player horizontally
-	private void MoveTowardsPlayer() 
+		
+	public virtual void Patrol()
 	{
-		float direction = player.GlobalPosition.X > GlobalPosition.X ? 1 : -1;
-		Velocity = new Vector2(direction * Speed, Velocity.Y);
-		//Scale = new Vector2(direction, Scale.Y);
-		GD.Print("Attack");
-	}
-
-	// Patrol between boundaries if player is not in range
-	private void Patrol() 
-	{
-		// Check the current direction
-		if (movementDirection == 1) // Moving right
-		{
-			// Move right
-			Velocity = new Vector2(Speed, Velocity.Y);
-
-			// Check if the enemy has reached the right boundary
-			if (GlobalPosition.X >= RightBoundary)
-			{
-				// Switch to moving left
-				movementDirection = -1;
-				Scale = new Vector2(-1, Scale.Y); // Flip the enemy sprite
-			}
-		}
-		else if (movementDirection == -1) // Moving left
-		{
-			// Move left
-			Velocity = new Vector2(-Speed, Velocity.Y);
-
-			// Check if the enemy has reached the left boundary
-			if (GlobalPosition.X <= LeftBoundary)
-			{
-				// Switch to moving right
-				movementDirection = 1;
-				Scale = new Vector2(1, Scale.Y); // Flip the enemy sprite
-			}
-		}
+		Velocity = new Vector2(Speed * movementDirection, Velocity.Y);
 	}
 
 	// This applies the gravity
@@ -144,7 +110,7 @@ public partial class BaseEnemy : CharacterBody2D
 		if (body is Player)
 		{
 			playerInRange = false;  
-			//playerInEnemy = false;
+			
 		}
 	}
 
@@ -177,6 +143,26 @@ public partial class BaseEnemy : CharacterBody2D
 		}
 	}
 
+	// Change direction on left bumper
+	private void OnLeftBumperEntered(Node body)
+	{
+		if (body == this)
+		{
+			movementDirection = 1;
+			Scale = new Vector2(1, Scale.Y);
+		}
+	}
+
+	// Change direction on right bumper
+	private void OnRightBumperEntered(Node body)
+	{
+		if (body == this)
+		{
+			movementDirection = -1;
+			Scale = new Vector2(-1, Scale.Y);
+		}
+	}
+
 	// When the enemy takes damage.
     public virtual void TakeDamage(int damage) 
 	{
@@ -185,6 +171,8 @@ public partial class BaseEnemy : CharacterBody2D
 		{
 			QueueFree();
 			SpawnHealing();
+
+			//GameManager.Instance.AllEnemiesAreDead();
 		} 
 	}
 

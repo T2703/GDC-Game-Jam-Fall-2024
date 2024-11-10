@@ -7,9 +7,7 @@ public partial class Pillbug : BaseEnemy
     {
         base._Ready();
 		Health = 3;
-		Speed = 200f;
+		Speed = 300f;
 		Damage = 1;
-		LeftBoundary = -200;
-		RightBoundary = 200;
     }
 }

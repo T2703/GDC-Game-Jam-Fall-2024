@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0cgbldubb3eg"]
+
+[ext_resource type="Texture2D" uid="uid://dcjj5x7bp26fx" path="res://Graphics/UI/GameOver.png" id="1_2xjwv"]
+[ext_resource type="Script" path="res://Components/UI/GameOver.cs" id="1_s4xlq"]
+[ext_resource type="AudioStream" uid="uid://cch6h7f6tvd8e" path="res://Sounds/SFX/GameOverSFX.mp3" id="3_avecq"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s4xlq")
+
+[node name="GameOver" type="Sprite2D" parent="."]
+position = Vector2(288.5, 157.25)
+scale = Vector2(2.865, 2.37218)
+texture = ExtResource("1_2xjwv")
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(0, 0, 1, 1)
+layout_mode = 0
+offset_left = 238.0
+offset_top = 59.0
+offset_right = 479.0
+offset_bottom = 141.0
+text = "GAME OVER :("
+
+[node name="Retry" type="Button" parent="."]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 103.0
+offset_right = 328.0
+offset_bottom = 134.0
+text = "Retry?"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 146.0
+offset_right = 328.0
+offset_bottom = 177.0
+text = "Give Up"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(288, 137)
+zoom = Vector2(5, 5)
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_avecq")
+
+[connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

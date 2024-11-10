@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckekvfvrm1cgm"]
+
+[ext_resource type="Script" path="res://Components/Utils/DeathArea.cs" id="1_ew8gy"]
+
+[node name="DeathArea" type="Area2D"]
+collision_layer = 16
+collision_mask = 17
+script = ExtResource("1_ew8gy")
+
+[node name="BrickFloor" type="Sprite2D" parent="."]
+position = Vector2(102, 102)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-209.004, 3202)
+scale = Vector2(448.394, 256.181)
+polygon = PackedVector2Array(-100, 100, -100, -100, 100, -100, 100, 100)
